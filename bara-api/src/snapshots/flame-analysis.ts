@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { EVIDENCE_POLICY } from './evidence-policy.js';
+import { imageModelOptions } from './image-model.js';
 
 export const FlameResult = z.strictObject({
   classification: z.enum(['VISIBLE', 'NOT_VISIBLE', 'UNCERTAIN']),
@@ -35,7 +36,7 @@ export async function analyzeFlames(image: Buffer, contentType: string) {
       headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
       signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false, max_output_tokens: 700,
+        ...imageModelOptions(), store: false, max_output_tokens: 700,
         instructions: FLAME_PROMPT,
         input: [{ role: 'user', content: [{ type: 'input_image', image_url: `data:${contentType};base64,${image.toString('base64')}`, detail: 'high' }] }],
         text: { format: { type: 'json_schema', name: 'flame_detection', strict: true, schema: {

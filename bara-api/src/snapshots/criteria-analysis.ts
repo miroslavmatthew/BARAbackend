@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { EVIDENCE_POLICY } from './evidence-policy.js';
+import { imageModelOptions } from './image-model.js';
 
 export interface Criterion {
   key: string; name: string; version: number; prompt: string;
@@ -34,7 +35,7 @@ export async function analyzeCriteria(criteria: Criterion[], image: Buffer, cont
       const response = await fetch('https://api.openai.com/v1/responses', {
         method: 'POST', headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
         signal: AbortSignal.timeout(45000),
-        body: JSON.stringify({ model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false, max_output_tokens: 1600,
+        body: JSON.stringify({ ...imageModelOptions(), store: false, max_output_tokens: 1600,
           instructions: criterion.prompt.includes(EVIDENCE_POLICY) ? criterion.prompt : `${criterion.prompt}\n\n${EVIDENCE_POLICY}`,
           input: [{ role: 'user', content: [{ type: 'input_image', image_url: imageUrl, detail: 'high' }] }],
           text: { format: { type: 'json_schema', name: criterion.key, strict: true, schema: criterion.expectedResult.jsonSchema } },

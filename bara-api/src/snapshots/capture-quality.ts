@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { Criterion } from './criteria-analysis.js';
+import { imageModelOptions } from './image-model.js';
 
 export const CaptureAssessment = z.strictObject({
   status: z.enum(['CLEAR', 'BLURRY', 'CUT_OFF', 'NOT_PRESENT', 'UNKNOWN']),
@@ -41,7 +42,7 @@ export async function assessCaptureQuality(criteria: Criterion[], image: Buffer,
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST', headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
       signal: AbortSignal.timeout(20000),
-      body: JSON.stringify({ model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false, max_output_tokens: 1500,
+      body: JSON.stringify({ ...imageModelOptions(), store: false, max_output_tokens: 1500,
         instructions: CAPTURE_QUALITY_PROMPT,
         input: [{ role: 'user', content: [
           { type: 'input_text', text: JSON.stringify(targets.map(c => ({ key: c.key, name: c.name }))) },

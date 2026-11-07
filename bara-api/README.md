@@ -136,6 +136,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 # Stored analysis criteria
 
+Image analysis uses GPT-6 Luna (`gpt-6-luna`) by default in Docker Compose. Set `OPENAI_IMAGE_MODEL` to override the model for snapshot criteria, capture quality, and legacy flame analysis. Outside Compose, selection falls back to `OPENAI_MODEL`, then `gpt-6-luna`. Luna uses `reasoning.effort: none` to preserve the existing response timeouts and output-token budgets. The witness instruction model continues to use `OPENAI_INSTRUCTION_MODEL`, then `OPENAI_MODEL`, then `gpt-4.1-mini`. Rebuild with `docker compose up --build -d` to apply these changes; historical images are not reanalyzed. Model capabilities: [OpenAI GPT-6 Luna documentation](https://developers.openai.com/api/docs/models/gpt-6-luna).
+
 For bulk synthetic fire observations and accelerated replay, see [scripts/SIMULATION.md](scripts/SIMULATION.md).
 
 MongoDB collection `analysis_criteria` stores `visible_flames` and `forest_woodland_fire`. Each record contains its name, description, full user prompt, expected JSON response schema, display order, version, timestamps, and revision history. Burning material is an array so multiple burning materials can be recorded.
