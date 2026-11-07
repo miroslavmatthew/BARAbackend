@@ -1,0 +1,25 @@
+{
+  "synthetic": true,
+  "method": "built-in image_gen tool",
+  "generatedAtDate": "2026-11-07",
+  "files": [
+    {
+      "file": "clear-forest-fire.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: synthetic software-test fixture, NOT an image of a real incident. Create a single realistic phone photograph of a small clearly visible fire burning dry leaf litter and a low shrub on the forest floor among several trees. Orange yellow flames are sharply identifiable and connected to the burning dry leaves and shrub. A gray smoke plume rises from the visible burning area, with its base and upper plume entirely in the frame. Wide view from a stationary observer on a path at a safe distance, daylight, foliage and ground sharp. No people, no firefighters, no vehicles, no suppression equipment, no buildings, no text or watermarks. This is for evaluating image classification, so evidence of flames, wooded setting, visibly burning vegetation, and smoke origin must all be visually unambiguous. Landscape 3:2."
+    },
+    {
+      "file": "smoke-obscured.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: synthetic software-test image. One realistic phone photo looking across a forest canopy at a large gray smoke plume rising behind trees. The base of the smoke and all ground-level activity are completely hidden by dense foreground leafy trees. Only the upper plume and healthy green trees are visible. No flames, no glowing combustion, no burned vegetation, no people, no buildings, no equipment. Sharp daylight image, natural colors. This is an ambiguous smoke-only scene: from visible evidence a viewer cannot establish what is burning, whether the forest is burning, or where the exact source is. Landscape 3:2, no text, no watermark."
+    },
+    {
+      "file": "blurred-fire.png",
+      "editTarget": "clear-forest-fire.png",
+      "prompt": "Edit this synthetic forest-fire test photograph to simulate a severely out-of-focus phone capture. Preserve the same scene, camera viewpoint, positions, lighting and colors, but make the whole frame heavily optically defocused so the orange flame area is only a soft indistinct orange yellow blob, the trees and bushes lack recognizable fine structure, and reliable details about what is burning cannot be determined. No text, no additional objects. This is a deliberate image-quality test fixture, not an aesthetic change."
+    },
+    {
+      "file": "red-square.png",
+      "source": "bara-intelligence/test/ai-test.png",
+      "note": "Existing repository control image; red square on white background."
+    }
+  ]
+}
